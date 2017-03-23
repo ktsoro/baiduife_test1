@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        body{background-color: #ccc}
+       
+        div.arr{background-color: red;margin: 5px;padding : 5px;float: left;};
+    </style>
+</head>
+<body>
+    <div id="content">
+        <input type="text" id="numArr" value="">
+        <button type="button" id="left_in" >左侧入</button>
+        <button type="button" id="right_in">右侧入</button>
+        <button type="button" id="left_out">左侧出</button>
+        <button type="button" id="right_out">右侧出</button>
+   
+    <div id="showBox">
+    </div>
+    </div>
+</body>
+<script>
+    //将共用的代码独立作为一个函数。
+    function pushNum(){
+        var val = document.getElementById("numArr").value;
+        document.getElementById("numArr").value = "";
+        var p = document.createElement("div");
+         //创建p时加入点击删除的监听
+         p.addEventListener("click",clickDel,false);
+         //对整个arr类进行样式渲染。
+         p.setAttribute("class","arr");
+         p.appendChild(document.createTextNode(parseInt(val)));
+        return p;
+    };
+
+    function pushNumL(){
+            var p=pushNum();
+            document.getElementById("showBox").insertBefore(p,document.getElementById("showBox").childNodes[0]);
+    };
+    function pushNumR(){
+            var p=pushNum();
+            document.getElementById("showBox").appendChild(p);
+    };
+    function delNumL(){
+            document.getElementById("showBox").removeChild(document.getElementById("showBox").childNodes[0]);//firstChild亦可
+    };
+    function delNumR(){
+            document.getElementById("showBox").removeChild(document.getElementById("showBox").lastChild);
+    };
+
+    //删除自身函数
+    function clickDel(){
+            this.parentNode.removeChild(this);
+              // console.log(alert(this));
+    };
+
+    function init(){
+    document.getElementById("right_in").addEventListener("click",pushNumR,true);
+    document.getElementById("left_in").addEventListener("click",pushNumL,false);
+    document.getElementById("left_out").addEventListener("click",delNumL,false);
+    document.getElementById("right_out").addEventListener("click",delNumR,false);
+    };
+
+    init();
+</script>
+</html>

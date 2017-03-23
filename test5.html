@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        body{background-color: #ccc}
+        #smart_in{background-color: lightslategrey}
+        div.arr{background-color: red;margin: 3px;padding : 0 1px 0 1px;width : 22px;float: left;};
+    </style>
+</head>
+<body>
+    <div id="content">
+        <input  type="text"   id="numArr" value="" >
+        <button type="button" id="left_in" >左侧入</button>
+        <button type="button" id="right_in">右侧入</button>
+        <button type="button" id="left_out">左侧出</button>
+        <button type="button" id="right_out">右侧出</button>
+        <button type="button" id="smart_in">智能化插入</button>
+    <div id = "text_limit">The input should be a number & it between 10 and 100.</div>
+    <div id="showBox">
+    </div>
+    </div>
+</body>
+<script>
+    //将共用的代码独立作为一个函数。
+    //var array_num = [];
+    function pushNum(input){
+        var val = input || document.getElementById("numArr").value;
+     //   array_num.push(val);
+        document.getElementById("numArr").value = "";
+        if(isNaN(val)){
+            alert("The element should be number");
+        }else if (val < 10){
+            alert("The number should be more than 10.")
+        }else if(val > 100){
+            alert("You should not do this.")
+        }else if(document.getElementById("showBox").childNodes.length >60){
+            alert("The number of inputs is less than 60")
+        } else{
+        var p = document.createElement("div");
+         //创建p时加入点击删除的监听
+         p.addEventListener("click",clickDel,false);
+         //对整个arr类进行样式渲染。
+         p.setAttribute("class","arr");
+         p.appendChild(document.createTextNode(parseInt(val)));
+         p.style.height = (val+"px");
+         //下面代码可以让显示条底部对齐
+         // p.style.marginTop = 100-val +"px";
+         return p;
+        }
+    };
+
+    function pushNumL(){
+            var p=pushNum();
+            document.getElementById("showBox").insertBefore(p,document.getElementById("showBox").childNodes[0]);
+    };
+    function pushNumR(){
+            var p=pushNum();
+            document.getElementById("showBox").appendChild(p);
+    };
+    function pushSmart(){
+            var val = parseInt(document.getElementById("numArr").value);
+            var index = document.getElementById("showBox");
+            var len =index.childNodes.length;
+            var in_arr=[];
+                in_arr.push(val);
+            for(var i=len-1;i>=0;i--){
+                in_arr.push(index.childNodes[i].textContent);
+                document.getElementById("showBox").removeChild(document.getElementById("showBox").lastChild);    
+                };
+            in_arr = in_arr.sort(function(a,b){
+                return a-b;
+            });
+            for(var j = 0;j < in_arr.length;j++){
+                var a = pushNum(in_arr[j]);
+                document.getElementById("showBox").appendChild(a);
+
+            };
+    };
+    function delNumL(){
+            document.getElementById("showBox").removeChild(document.getElementById("showBox").childNodes[0]);//firstChild亦可
+    };
+    function delNumR(){
+            document.getElementById("showBox").removeChild(document.getElementById("showBox").lastChild);
+    };
+
+    //删除自身函数
+    function clickDel(){
+            this.parentNode.removeChild(this);
+              // console.log(alert(this));
+    };
+
+    function testNum(){
+        if(document.getElementById("numArr").value > 100){
+            alert("The number must less than 100;")
+        }
+    };
+
+    function init(){
+    document.getElementById("right_in").addEventListener("click",pushNumR,false);
+    document.getElementById("left_in").addEventListener("click",pushNumL,false);
+    document.getElementById("left_out").addEventListener("click",delNumL,false);
+    document.getElementById("right_out").addEventListener("click",delNumR,false);
+    document.getElementById("numArr").addEventListener("keyup",testNum,false);
+    document.getElementById("smart_in").addEventListener("click",pushSmart,false);
+    };
+
+    init();
+   console.log(document.getElementById("text_limit").textContent)
+</script>
+</html>

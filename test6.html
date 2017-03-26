@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        body{background-color: #ccc}
+        span{color: red}
+        div.arr{background-color: #fef;margin: 5px;padding : 5px;float: left;};
+    </style>
+</head>
+<body>
+    <div id="content">
+        <textarea rows="" cols="" id="inputs"></textarea>
+        <input type="text" id="key" value="" placeholder="请输入搜索关键词">
+        <button type="button" id="load">加载</button>
+        <button type="button" id="search">搜索</button>
+        
+    <div id="showBox">
+    </div>
+    </div>
+</body>
+<script>
+   
+    function pushElements(){
+        var val = document.getElementById("inputs").value,
+            key = document.getElementById("key").value,
+            
+
+            arr = [];
+         document.getElementById("content").value = "";
+         arr = val.split(/[,.，。：；;: ]|\s+/g);
+         arr = arr.filter(function(value) {if(Boolean(value)){return true;}});
+                                                                                                
+                   // ([\[\]\,.?"\(\)+_*\/\\&\$#^@!~`]      |  (?!\s)    '\s+|\s+'   (?!\s)  |   (?!\s)   "\s+|\s+"    (?!\s));
+         console.log(arr);
+         for(var i = 0;i<arr.length;i++){
+         var p = document.createElement("div");
+         p.addEventListener("click",clickDel,false);
+         //对整个arr类进行样式渲染。
+         p.setAttribute("class","arr");
+         p.appendChild(document.createTextNode(arr[i]));
+         document.getElementById("showBox").appendChild(p);
+
+         };
+         //创建p时加入点击删除的监听
+        
+    };
+
+   function search_key(){
+       var con = document.getElementById("showBox").innerHTML;
+       var key = document.getElementById("key");
+       var exg = new RegExp(key.value,"g");
+       var clearText = new RegExp(/\<span\>|\<\/span\> /,"g");
+       con = con.replace(clearText,"");
+       con = con.replace(exg,"<span>"+document.getElementById("key").value+"</span>");
+       document.getElementById("showBox").innerHTML = con;
+   };
+
+    //删除自身函数
+    function clickDel(){
+            this.parentNode.removeChild(this);
+              // console.log(alert(this));
+    };
+
+    function init(){
+    document.getElementById("load").addEventListener("click",pushElements,false);
+    document.getElementById("search").addEventListener("click",search_key,false);
+   
+    };
+
+    init();
+</script>
+</html>

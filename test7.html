@@ -48,29 +48,31 @@
     </style>
 </head>
 <body>
-    <div id="d00" class="k0">00
-        <div id="d01" class="k1">01
-            <div id="d03" class="k2">03
-                <div id="d07" class="k3"></div>07
-                <div id="d08" class="k3"></div>08
+    <div id="d00" class="k0">
+        <div id="d01" class="k1">
+            <div id="d03" class="k2">
+                <div id="d07" class="k3"></div>
+                <div id="d08" class="k3"></div>
             </div>
-            <div id="d04" class="k2">04
-                <div id="d09" class="k3"></div>09
-                <div id="d10" class="k3"></div>10
+            <div id="d04" class="k2">
+                <div id="d09" class="k3"></div>
+                <div id="d10" class="k3"></div>
             </div>
         </div>
-        <div id="d02" class="k1">02
-            <div id="d05" class="k2">05
-                <div id="d11" class="k3"></div>11
-                <div id="d12" class="k3"></div>12
+        <div id="d02" class="k1">
+            <div id="d05" class="k2">
+                <div id="d11" class="k3"></div>
+                <div id="d12" class="k3"></div>
             </div>
-            <div id="d06" class="k2">06
-                <div id="d13" class="k3"></div>13
-                <div id="d14" class="k3"></div>14
+            <div id="d06" class="k2">
+                <div id="d13" class="k3"></div>
+                <div id="d14" class="k3"></div>
             </div>
         </div>
     </div>
-    <button type="button" id="button1">点击</button>
+    <button type="button" id="button1">前序遍历</button>
+    <button type="button" id="button2">中序遍历</button>
+    <button type="button" id="button3">后续遍历</button>
 </body>
 <script>
  /*   var nodeTrees = document.getElementById("d00");
@@ -100,8 +102,38 @@
         };
         DL(node);
     };
+    function LDR(){
+        var node = document.getElementById("d00");
+        var i = 0;
+        function LD(node){
+            if(!(node == undefined)){
+                LD(node.childNodes[1]);
+                setTimeout(function(){node.style.backgroundColor = "red";},i*1000);
+                setTimeout(function(){node.style.backgroundColor = "white";},i*1000+1000);
+                i++;
+                LD(node.childNodes[3]);
+            };
+        };
+        LD(node);
+    };
+    function LRD(){
+        var node =document.getElementById("d00");
+        var i = 0;
+        function LR(node){
+            if(!(node == undefined)){
+                LR(node.childNodes[1]);
+                LR(node.childNodes[3]);
+                setTimeout(function(){node.style.backgroundColor = "red";},i*1000);
+                setTimeout(function(){node.style.backgroundColor = "white";},i*1000+1000);
+                i++;
+            };
+        };
+        LR(node);
+    };
     function init(){
         document.getElementById("button1").addEventListener("click",DLR,false);
+        document.getElementById("button2").addEventListener("click",LDR,false);
+        document.getElementById("button3").addEventListener("click",LRD,false);
     };
     init();
 </script>

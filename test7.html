@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+    .k0{
+        width: 800px;
+        height: 200px;
+        border: 1px solid #000;
+        background-color: #fff;
+        display: flex;
+        flex-direction: row;
+        flex-flow: row ;
+        align-items: center;
+        justify-content: space-around;
+        }
+    .k1{
+        width: 370px;
+        height: 150px;
+        border: 1px solid #000;
+        background-color: #fff;
+        display: flex;
+        flex-direction: row;
+        flex-flow: row ;
+        align-items: center;
+        justify-content: space-around;
+    }
+    .k2{
+        width: 155px;
+        height: 90px;
+        border: 1px solid #000;
+        background-color: #fff;
+        display: flex;
+        flex-direction: row;
+        flex-flow: row ;
+        align-items: center;
+        justify-content: space-around;
+    }
+    .k3{
+        width: 50px;
+        height: 40px;
+        border: 1px solid #000;
+        background-color: #fff;
+    }
+    </style>
+</head>
+<body>
+    <div id="d00" class="k0">00
+        <div id="d01" class="k1">01
+            <div id="d03" class="k2">03
+                <div id="d07" class="k3"></div>07
+                <div id="d08" class="k3"></div>08
+            </div>
+            <div id="d04" class="k2">04
+                <div id="d09" class="k3"></div>09
+                <div id="d10" class="k3"></div>10
+            </div>
+        </div>
+        <div id="d02" class="k1">02
+            <div id="d05" class="k2">05
+                <div id="d11" class="k3"></div>11
+                <div id="d12" class="k3"></div>12
+            </div>
+            <div id="d06" class="k2">06
+                <div id="d13" class="k3"></div>13
+                <div id="d14" class="k3"></div>14
+            </div>
+        </div>
+    </div>
+    <button type="button" id="button1">点击</button>
+</body>
+<script>
+ /*   var nodeTrees = document.getElementById("d00");
+    function createTree(Level,Width){
+        var nodeL = document.createElement("div");
+        var parId = 2^Level+Width;
+        var chiId = 2^Level+Width+1;
+        var id = "d"+index;
+        nodeL.setAttribute("id",id);
+        nodeL.setAttribute("class","k"+(Level+1));
+        document.getElementById(id)
+
+    };*/
+    //前序遍历
+    
+    function DLR(){
+        var node = document.getElementById("d00");
+        function DL(node){
+            if(!(node == undefined)){
+               node.style.backgroundColor = "red";
+               node.style.backgroundColor = "white";
+               DL(node.childNodes[1]);
+               DL(node.childNodes[3]);
+            };
+        };
+        DL(node);
+    };
+    function init(){
+        document.getElementById("button1").addEventListener("click",DLR,false);
+    };
+    init();
+</script>
+</html>

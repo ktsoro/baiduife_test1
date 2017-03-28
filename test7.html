@@ -88,10 +88,12 @@
     
     function DLR(){
         var node = document.getElementById("d00");
+        var i = 0;
         function DL(node){
             if(!(node == undefined)){
-               node.style.backgroundColor = "red";
-               node.style.backgroundColor = "white";
+               setTimeout(function(){node.style.backgroundColor = "red";},i*1000);
+               setTimeout(function(){node.style.backgroundColor = "white";},i*1000+1000);
+               i++;
                DL(node.childNodes[1]);
                DL(node.childNodes[3]);
             };
